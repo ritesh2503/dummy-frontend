@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Application
+
+A Next.js application with authentication, built with TypeScript and Tailwind CSS.
+
+## Project Structure
+
+```
+frontend/
+├── app/                    # Next.js App Router pages
+│   ├── dashboard/         # Dashboard page (protected route)
+│   │   └── page.tsx
+│   ├── login/            # Login page
+│   │   └── page.tsx
+│   ├── layout.tsx        # Root layout
+│   ├── page.tsx          # Home page
+│   └── globals.css       # Global styles
+├── components/           # Reusable components
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── Input.tsx
+│   └── index.ts
+├── lib/                  # Utility functions
+│   ├── api.ts           # API client functions
+│   └── auth.ts          # Authentication utilities
+├── types/               # TypeScript type definitions
+│   └── user.ts
+├── middleware.ts        # Next.js middleware for route protection
+└── .env.local          # Environment variables
+```
+
+## Features
+
+- User authentication with JWT
+- Protected routes with middleware
+- Dashboard with user information
+- Reusable UI components
+- Type-safe API calls
+- Tailwind CSS styling
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ installed
+- Backend API running at `http://localhost:3005`
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configure environment variables:
+The `.env.local` file should contain:
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3005/api/v1
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Start the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## Available Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/` - Home page (shows user info if logged in)
+- `/login` - Login page
+- `/dashboard` - Protected dashboard (requires authentication)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API Integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application connects to the backend API at `http://localhost:3005/api/v1`. Key endpoints:
 
-## Deploy on Vercel
+- `POST /user/login` - User authentication
+- `GET /user/:id` - Get user details
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Button
+Reusable button component with variants (primary, secondary, danger)
+
+### Card
+Container component with CardHeader and CardBody sub-components
+
+### Input
+Form input component with label support
+
+## Utilities
+
+### API Client (`lib/api.ts`)
+Centralized API calls for authentication and user management
+
+### Auth Utilities (`lib/auth.ts`)
+Helper functions for managing tokens and user data in localStorage
+
+## Route Protection
+
+The middleware protects routes that require authentication. Protected routes:
+- `/dashboard/*`
+
+Authenticated users are automatically redirected away from:
+- `/login`
+
+## Development
+
+```bash
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run linting
+npm run lint
+```
+
+## Tech Stack
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
+- JWT Authentication
