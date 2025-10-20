@@ -1,0 +1,51 @@
+# .dockerignore - Excludes files from Docker build context
+# This speeds up builds and reduces image size by not copying unnecessary files
+
+# Dependencies - will be installed via npm ci
+node_modules
+npm-debug.log*
+
+# Next.js build output - will be generated during build
+.next
+out
+
+# Development and testing files
+.git
+.gitignore
+*.md
+README.md
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files (should not be in image, use docker run -e or compose)
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+.nyc_output
+*.test.js
+*.spec.js
+__tests__
+
+# Logs
+*.log
+logs
+
+# Misc
+.cache
+dist
+build
