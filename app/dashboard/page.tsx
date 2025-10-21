@@ -282,7 +282,7 @@ export default function DashboardPage() {
                   {/* Sender Info Display */}
                   <div className="bg-gray-50 p-3 rounded-md">
                     <p className="text-xs text-gray-600">
-                      <strong>From:</strong> {user.name} ({user.email})
+                      <strong>Powered By</strong>  Legosync
                     </p>
                   </div>
 
