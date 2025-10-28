@@ -47,10 +47,21 @@ COPY --from=deps /app/node_modules ./node_modules
 
 # Copy all source code from host to container
 # This includes: pages, components, public, styles, next.config.js, etc.
+# Note: .env files are excluded via .dockerignore (security best practice)
 COPY . .
 
+# ==================== Environment Configuration ====================
+# SECURITY: Never copy .env files into Docker images
+# Instead, pass environment variables as build arguments
+#
 # Build arguments - can be passed during docker build
 # Example: docker build --build-arg NEXT_PUBLIC_API_URL=https://api.prod.com .
+#
+# Development: docker build --build-arg NEXT_PUBLIC_API_URL=http://localhost:3005/api/v1 .
+# Production:  docker build --build-arg NEXT_PUBLIC_API_URL=https://api.yourproduction.com/api/v1 .
+#
+# See ENV-SETUP.md for complete documentation
+# ===================================================================
 ARG NEXT_PUBLIC_API_URL
 # Set environment variable from build argument
 # Next.js will inline this value during build for NEXT_PUBLIC_ variables

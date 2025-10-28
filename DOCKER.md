@@ -88,6 +88,8 @@ The Dockerfile uses 3 stages for optimization:
 
 ### Environment Variables
 
+**IMPORTANT:** For complete environment configuration and security best practices, see [ENV-SETUP.md](./ENV-SETUP.md)
+
 **Build-time variables (baked into the build):**
 ```bash
 NEXT_PUBLIC_API_URL=http://localhost:3005/api/v1
@@ -95,8 +97,19 @@ NEXT_PUBLIC_API_URL=http://localhost:3005/api/v1
 
 **Set during build:**
 ```bash
-docker build --build-arg NEXT_PUBLIC_API_URL=https://api.production.com -t dummy-frontend .
+# Development
+docker build --build-arg NEXT_PUBLIC_API_URL=http://localhost:3005/api/v1 -t dummy-frontend:dev .
+
+# Production (NEVER build production images locally - use CI/CD)
+docker build --build-arg NEXT_PUBLIC_API_URL=https://api.production.com -t dummy-frontend:prod .
 ```
+
+**Security Notes:**
+- ⚠️ `.env` files are **NEVER** copied into Docker images (excluded via `.dockerignore`)
+- ⚠️ **NEVER build production images on your local machine** - use CI/CD pipelines
+- ⚠️ `NEXT_PUBLIC_*` variables are exposed to the browser - never put secrets in them
+- ✅ Use build args (`--build-arg`) for all configuration
+- ✅ Production builds should happen in CI/CD with secrets from vault/secrets manager
 
 **Runtime variables (can be changed without rebuild):**
 - Must be set in your hosting platform (Vercel, AWS, etc.)

@@ -30,8 +30,18 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Environment variables
+# Ignore ALL .env files except .env.example (templates only)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# DO NOT ignore these (templates with placeholders only):
+# .env.example
 
 # vercel
 .vercel

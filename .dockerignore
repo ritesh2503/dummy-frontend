@@ -26,13 +26,19 @@ README.md
 .DS_Store
 Thumbs.db
 
-# Environment files (should not be in image, use docker run -e or compose)
+# Environment files - NEVER include in Docker images
+# Security: Environment variables are passed via build args (--build-arg)
+# See ENV-SETUP.md for proper production deployment
 .env
-.env*.local
+.env*
 .env.local
+.env.development
 .env.development.local
-.env.test.local
+.env.production
 .env.production.local
+.env.test
+.env.test.local
+.env.example
 
 # Testing
 coverage
